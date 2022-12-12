@@ -5,7 +5,10 @@ const state = {
 }
 
 module.exports.connect=function(done) {
-    const url='mongodb://localhost:27017';
+    // const url='mongodb://localhost:27017';
+    const url='mongodb+srv://raeesahmed:724@cluster0.6gbj8pv.mongodb.net';
+    
+    
     const dbname='sidemen'
 
     mongoClient.connect(url, (err, data) => {
