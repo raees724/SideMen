@@ -7,7 +7,7 @@ const { ObjectID, ObjectId } = require('bson');
 var objectId = require('mongodb').ObjectId
 const paypal = require('paypal-rest-sdk');
 const Razorpay = require('razorpay');
-
+require('dotenv').config()
 
 var instance = new Razorpay({
     key_id: process.env.key_id,
