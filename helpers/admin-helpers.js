@@ -1,7 +1,5 @@
 var db = require('../config/connection')
 var collection = require('../config/collection');
-const { CATEGORY_COLLECTION } = require('../config/collection');
-const { response } = require('../app');
 var objectId = require('mongodb').ObjectId
 
 
