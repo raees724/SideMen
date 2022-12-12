@@ -1,0 +1,215 @@
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+{{#if products}}
+<section class="product spad">
+       <div class="container">
+       
+     
+        {{!-- <h2>{{oneCat.category}}</h2> --}}
+      
+        <div class="row property__gallery">
+           
+            {{#each products}}
+            
+            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg=""><img src="/assets/product-images/{{this._id}}1.jpg" alt="not show">
+                         {{!-- <div class="label new">New</div>  --}}
+                         {{#if catOfferPercentage}}
+                        <div class="label new">{{this.catOfferPercentage}}% off</div>
+                        {{/if}}
+                        {{#if productOfferPercentage}}
+                        <p class="label new">{{productOfferPercentage}}<small>%off</small></p>
+                        {{/if}} 
+
+                        <ul class="product__hover">
+                            <li><a href="/assets/product-images/{{this._id}}1.jpg" class="image-popup"><span
+                                        class="arrow_expand"></span></a></li>
+                            {{#if this.wishlisted }}
+								<li><a onclick="addToWishlist('{{this._id}}')" class="social-info btn_prod">
+									<span id="{{this._id}}wishList" class="icon_heart_alt wish"></span>
+								</a></li> {{else}}
+								<li><a onclick="addToWishlist('{{this._id}}')" class="social-info btn_prod">
+									<span id="{{this._id}}wishList" class="icon_heart_alt "></span>
+								</a></li>
+								{{/if}}
+                            <li><a><button onclick="addToCart('{{this._id}}')"><span
+                                            class="icon_bag_alt"></span></button></a></li>
+                        </ul>
+                        </a>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="/product-view/{{this._id}}">{{this.Name}}</a></h6>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                         {{!-- <div class="product__price">₹{{this.price}}</div> --}}
+                         <div class="product__price">{{#if actualPrice}}₹ {{this.price}}<span> <del>₹
+                                    {{this.actualPrice}}</del></span>{{else}}₹ {{this.price}}{{/if}}</div>
+                    
+                        {{#if fewStock}}
+                        <p class="text-danger">Only Few Available!</p>
+                        {{/if}}
+                        {{#if noStock}}
+                        <p class="text-danger">Out Of Stock!</p>
+                        {{/if}} 
+
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+{{else}}
+<div class="container">
+   <a href="/searchProduct"> <img style="width:100% ;height:500px ;" src="https://resources.nicepage.com/853/54853/404.png" alt=""></a>
+    {{!-- <h1>CART EMPTY</h1> --}}
+</div>
+{{/if}}
+
+
+<script src="/public/javascripts/script.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ {{!-- <script>
+   // function addToCart(proId) {
+   //     console.log("entered")
+    //    $.ajax({
+    //        url: '/add-to-cart/' + proId,
+    //        method: 'get',
+    //        success: (response) => {
+     //           console.log(response);
+
+   //             if (response.status) {
+          //          let count = $('#cart-Count').html()
+           //         count = parseInt(count) + 1
+           //         swal("ADD TO CART", {
+             //           icon: "success",
+                    });
+             //       $('#cart-Count').html(count)
+
+
+                }
+
+            }
+        })
+    }
+
+</script>  --}}
+
+<script>
+    function addToCart(proId) {
+        $.ajax({
+            url: "/add-to-cart/" + proId,
+            method: "get",
+            success: (response) => {
+                if (response.status == "add") {
+                    let count = $("#cart-count").html();
+                    count = parseInt(count) + 1;
+                    $("#cart-count").html(count);
+                    swal({
+                        icon: "success",
+                        title: "Item added to Cart",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(()=>{
+                location.reload()
+
+                    })
+                } else if (response.status == "noStock") {
+                    swal({
+                        icon: "error",
+                        title: "Oops..!",
+                        text: "Out Of Stock!",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                } else if (response.status == "fewStock") {
+                    swal({
+                        icon: "error",
+                        title: "Oops..!",
+                        text: "Out Of Stock!",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                } else if (response.status == "maxLimitStock") {
+                    swal({
+                        icon: "warning",
+                        title: "Oops..!",
+                        text: "Limit Is Reached!",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                } else {
+                    location.href = "/login";
+                }
+            },
+        });
+    }
+</script>
+
+<script>
+	function addToWishlist(proId){
+    let id = proId+'wishList'
+    var btn = document.getElementById(id)
+    swal({
+                        icon: "success",
+                        title: "Item added to WishList",
+                        timer: 2000,
+                    }).then(()=>{
+                location.reload()
+                })
+    $.ajax({
+        url: '/add-to-wishlist/'+proId,
+        method: 'get',
+        success:(response)=>{
+            if(response.status){
+                console.log(response.wishlist)
+                if(response.wishlist){
+                    btn.classList.add('wish')
+                    swal({
+                        icon: "success",
+                        title: "Item added to WishList",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(()=>{
+                location.reload()
+                })
+                }else{
+                    btn.classList.remove('wish')
+                }
+            }
+      }
+    })
+}
+</script>
+
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/mixitup.min.js"></script>
+<script src="/assets/js/jquery.countdown.min.js"></script>
+<script src="/assets/js/jquery.slicknav.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.nicescroll.min.js"></script>
+<script src="/assets/js/main.js"></script>
+

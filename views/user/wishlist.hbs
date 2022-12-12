@@ -1,0 +1,196 @@
+<link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{#if wishCount}}
+{{!-- <section class="" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0 text-black">My Wishlist</h3>
+          
+        </div>
+         {{#each product}}
+        
+        <div class="card rounded-3 mb-4">
+          <div class="card-body p-4">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img
+                  src="/assets/product-images/{{product._id}}1.jpg"
+                  class="img-fluid rounded-3" >
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal mb-2"><b>{{this.product.Name}}</b></p><br>  --}}
+                {{!-- <p class="lead fw-normal mb-2">{{this.product.discriptions}}</p> --}}
+              {{!-- </div>
+              
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                <h5 class="mb-0">₹{{product.price}}</h5>
+              </div>
+              <div>
+                <button class="ms-3 text-white mt-3 btn btn-danger" onclick="removeProduct('{{this.product._id}}')">Remove</button>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+
+      {{/each}}
+      </div>
+    </div>
+  </div>
+</section> --}}
+
+<section class="text-center center mt-3">
+  <h1>Wishlist</h1>
+</section>
+
+<section class="product spad">
+       <div class="container">
+       
+     
+        {{!-- <h2>{{oneCat.category}}</h2> --}}
+      
+        <div class="row property__gallery">
+           
+            {{#each product}}
+            
+            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg=""><img
+                  src="/assets/product-images/{{product._id}}1.jpg"
+                  class="img-fluid rounded-3" >
+                         <div class="label "><li><svg version="1.1" xmlns="https://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 64 64">
+      <path d="M47.199 4c-6.727 0-12.516 5.472-15.198 11.188-2.684-5.715-8.474-11.188-15.201-11.188-9.274 0-16.8 7.527-16.8 16.802 0 18.865 19.031 23.812 32.001 42.464 12.26-18.536 31.999-24.2 31.999-42.464 0-9.274-7.527-16.802-16.801-16.802z" fill="red"></path>
+    </svg></li></div> 
+                         {{!-- {{#if catOfferPercentage}}
+                        <div class="label new">{{this.catOfferPercentage}}% off</div>
+                        {{/if}}
+                        {{#if productOfferPercentage}}
+                        <p class="label new">{{productOfferPercentage}}<small>%off</small></p>
+                        {{/if}}  --}}
+
+                        <ul class="product__hover">
+                            <li><a href="/assets/product-images/{{product._id}}1.jpg" class="image-popup"><span
+                                        class="arrow_expand"></span></a></li>
+                            {{!-- {{#if this.wishlisted }}
+								<li><a onclick="addToWishlist('{{this._id}}')" class="social-info btn_prod">
+									<span id="{{this._id}}wishList" class="icon_heart_alt wish"></span>
+								</a></li> {{else}}
+								<li><a onclick="addToWishlist('{{this._id}}')" class="social-info btn_prod">
+									<span id="{{this._id}}wishList" class="icon_heart_alt "></span>
+								</a></li>
+								{{/if}} --}}
+                            <li><a><button onclick="addToCart('{{this._id}}')"><span
+                                            class="icon_bag_alt"></span></button></a></li>
+
+                                            <li><a><button onclick="removeProduct('{{this.product._id}}')"><span
+                                            class="icon_close"></span></button></a></li>
+                        </ul>
+                        </a>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="/product-view/{{this._id}}">{{this.product.Name}}</a></h6>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                         <div class="product__price">₹{{product.price}}</div>
+                         {{!-- <h5 class="mb-0">₹{{product.price}}</h5> --}}
+                         {{!-- <div class="product__price">{{#if actualPrice}}₹ {{this.price}}<span> <del>₹
+                                    {{this.actualPrice}}</del></span>{{else}}₹ {{this.price}}{{/if}}</div>
+                    
+                        {{#if fewStock}}
+                        <p class="text-danger">Only Few Available!</p>
+                        {{/if}}
+                        {{#if noStock}}
+                        <p class="text-danger">Out Of Stock!</p>
+                        {{/if}}  --}}
+
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+{{else}}
+<div class="container">
+    <img style="width:100% ;height:500px ;" src="https://media1.giphy.com/media/KxRI2oSHkjTU4AzXxW/giphy.gif?cid=6c09b9521af5174fdacc9d985d82e59d0a9cc58254639b4a&rid=giphy.gif&ct=s" alt="">
+    <h1>WishList Empty</h1>
+</div>
+{{/if}}
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/mixitup.min.js"></script>
+<script src="/assets/js/jquery.countdown.min.js"></script>
+<script src="/assets/js/jquery.slicknav.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.nicescroll.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function removeProduct(proId){
+      swal({
+            title: "Are you sure You Want to Remove?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+                if (willDelete) {
+        $.ajax({
+            url:'/wishlist_removeproduct/'+proId,
+            method: 'get',
+            success: (response)=>{
+                console.log(response, "respons")
+                if(response.status){
+                    location.reload()
+                    let count = $('#wishList-count').html()
+                    count = parseInt(count)-1
+                    $('#wishList-count').html(count)
+            }
+            }
+        })
+         swal("Poof! Your imaginary Wish has been deleted!", {
+                        icon: "success",
+                    });
+                    } else {
+                    swal("Your imaginary Wish is safe!");
+    }
+    });
+    }
+</script>
+
+

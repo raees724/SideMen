@@ -1,0 +1,79 @@
+
+
+
+<!-- Table Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                
+                <h6 class="mb-4">Product List</h6>
+                <a href="/admin/add-product" class="btn btn-danger mt-2 mb-2 ">Add Product</a> 
+                 </a>
+              <a href="/admin/add-productoffer">
+                <button
+                    class="btn btn-danger mt-2 mb-2">
+                    Add Product Offer
+                </button>
+            </a>               
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Price</th>
+                                {{!-- <th scope="col">Description</th> --}}
+                                <th scope="col">Stock</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each products}}
+                            <tr>
+                                
+                                <td> <p class="font-semibold"> {{this.Name}}</p></td>
+                                <td><img src="/assets/product-images/{{this._id}}1.jpg" width="40" alt="not pictetr"></td>
+                                <td>₹{{this.price}}</td>
+                                {{!-- <td>{{this.discriptions}}</td> --}}
+                                <td>{{this.stock}}</td>
+                                <td>{{this.category}}</td>
+                                <td><a class="btn btn-success"
+                                            href="/admin/edit-product/{{this._id}}" role="button">EDIT</a></td>
+                                <td><a class="btn btn-danger"
+                                            href="/admin/delete-product/{{this._id}}" role="button" onclick="return confirm('Are you sure  {{this.Name}} ?')">DELETE</a></td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->
+
+<script>
+    archiveFunction() {
+        swal({
+  title: "Are you sure?",
+  text: "But you will still be able to retrieve this file.",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#DD6B55",
+  confirmButtonText: "Yes, archive it!",
+  cancelButtonText: "No, cancel please!",
+  closeOnConfirm: false,
+  closeOnCancel: false
+},
+function(isConfirm){
+  if (isConfirm) {
+    swal("Deleted!", "Your imaginary file has been archived.", "success");
+  } else {
+    swal("Cancelled", "Your imaginary file is safe :)", "error");
+  }
+});
+    }
+</script>

@@ -1,0 +1,116 @@
+<main class="h-full pb-16 overflow-y-auto">
+  <div class="container px-6 mx-auto grid">
+
+    <h2 class="my-6 text-2xl font-semibold text-gray">
+      LIST COUPON
+      <a href="/admin/add-coupon">
+        <button
+          class="btn btn-danger">
+          ADD COUPEN
+        </button>
+      </a>
+    </h2>
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+      <div class="w-full overflow-x-auto">
+
+
+        <div class="w-full overflow-x-auto">
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+              <tr
+                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                {{!-- <th class="px-4 py-3">No</th> --}}
+                <th class="px-4 py-3">Coupen Code</th>
+                <th class="px-4 py-3">Discount</th>
+                <th>Coupen Validity</th>
+                {{!-- <th class="px-4 py-3">Edit</th> --}}
+                <th class="px-4 py-3">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody class="bg-secondary divide-y dark:divide-gray-700 dark:bg-gray-800 text-gray">
+              {{#each coupons}}
+
+              <tr class="text-gray">
+                {{!-- <td class="px-4 py-3">
+                  <div class="flex items-center text-sm">
+
+                    <div>
+                      <p class="font-semibold">1</p>
+
+                    </div>
+                  </div>
+
+
+
+                </td> --}}
+
+
+                <td class="px-4 py-3 text-sm">
+                <p class="font-semibold">{{this.coupon}}</p>
+
+                </td>
+                    <td class="px-4 py-3 text-sm">
+                <p class="font-semibold">{{this.offer}}%</p>
+
+                </td>
+                    <td class="px-4 py-3 text-sm" >
+                <p class="font-semibold">{{this.starting}}, To ,{{this.expiry}}</p>
+
+                </td>
+
+
+                {{!-- <td class="px-4 py-3 text-sm">
+                  <span class="">
+                    <a class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-700"
+                      href="/admin/edit-coupon/{{this._id}}" role="button">EDIT</a>
+                  </span>
+
+                </td> --}}
+
+
+
+                <td class="px-4 py-3 text-xs">
+
+                  <span class="">
+                    {{!-- <a class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+                      href="/admin/delete-coupon/{{this._id}}" role="button"
+                      onclick="return confirm('Are you sure  {{this.coupon}} ?')">DELETE</a> --}}
+                    <a class="btn btn-danger"
+                       role="button"
+                      onclick="deleteCoupon('{{this.coupon}}')">DELETE</a>
+                  </span>
+                </td>
+              </tr>
+              {{/each}}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+</div>
+</div>
+
+<script>
+    function deleteCoupon(couponId){
+        $.ajax(
+        alert('Are You Sure you want to delete the Coupon?fs'+couponId),
+          { 
+            url: 'deleteCoupon',
+            method: 'delete',
+            data: {
+                couponId: couponId
+            },
+            success:(response)=>{
+                alert('Coupon deleted Succesfully!')
+                location.reload()
+            }
+        })   
+
+    }
+</script>

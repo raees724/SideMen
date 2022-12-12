@@ -1,0 +1,391 @@
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+        
+        
+            <!-- Banner Section Begin -->
+    <section class="banner set-bg" data-setbg="https://pbs.twimg.com/media/FRHwJs8WUAUebhQ.jpg:large">
+   
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-8 m-auto">
+                    <div class="banner__slider owl-carousel">
+                        <div class="banner__item">
+                            <div class="banner__text">
+                                <span>The Sidemen Merches</span>
+                                <h1>Winter Hoodies</h1>
+                                <a href="/">Shop now</a>
+                            </div>
+                        </div>
+                        <div class="banner__item">
+                            <div class="banner__text">
+                                <span>The Spongebob Collections</span>
+                                <h1>Spongebob Bangers</h1>
+                                <a href="/">Shop now</a>
+                            </div>
+                        </div>
+                        <div class="banner__item">
+                            <div class="banner__text">
+                                <span>The Winter Collections</span>
+                                <h1>Sidemen Jackets</h1>
+                                <a href="/">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Section End -->
+        
+    {{!-- {{#if Products}}  --}}
+    <!-- Categories Section Begin -->
+        <section class="categories">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 p-0">
+                            <div class="categories__item set-bg" data-setbg="https://nemesismodels.com/wp-content/uploads/2021/08/Shop_Latest_Look_L_1.png">
+                                <div class="categories__text">
+                                    <h4>Men </h4>
+                                    <p>20 items</p>
+                                    <a href="/show-category/638ec73c1f3fd79c86ecc431">Shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 p-0">
+                            <div class="categories__item set-bg" data-setbg="https://pbs.twimg.com/media/E74amheX0AUDBIJ.jpg">
+                                <div class="categories__text">
+                                    <h4>Women</h4>
+                                    <p>20 items</p>
+                                    <a href="/show-category/638ec7401f3fd79c86ecc432">Shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 p-0">
+                            <div class="categories__item set-bg" data-setbg="https://pbs.twimg.com/media/ElcTJOIXIAIKHW0?format=jpg&name=large">
+                                <div class="categories__text">
+                                    <h4>Kid</h4>
+                                    <p>20 items</p>
+                                    <a href="/show-category/638ec7441f3fd79c86ecc433">Shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+     {{!-- {{/if}}     --}}
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="section-title">
+                        <h4>New product</h4>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <ul class="filter__controls">
+                        <li class="active" data-filter="*">All</li>
+                    {{#each category}}
+                    <li data-filter=".{{this.category}}">{{this.category}}’s</li>
+                    {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="row property__gallery">
+                {{#each products}}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix {{this.category}}">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg=""><img
+                            src="/assets/product-images/{{this._id}}1.jpg" alt="not show">
+                        {{!-- <div class="label new">New</div> --}}
+                        {{#if catOfferPercentage}}
+                        <div class="label new">{{this.catOfferPercentage}}% off</div>
+                        {{/if}}
+                        {{#if productOfferPercentage}}
+                        <p class="label new">{{productOfferPercentage}}<small>%off</small></p>
+                        {{/if}}
+
+                            <ul class="product__hover">
+                            <li><a href="/assets/product-images/{{this._id}}1.jpg" class="image-popup"><span
+                            class="arrow_expand"></span></a></li>
+                            {{!-- <li><a href="#"><span class="icon_heart_alt"></span></a></li> --}}
+                                {{#if this.wishlisted }}
+								<li><a onclick="addToWishlist('{{this._id}}')" class="social-info btn_prod">
+									<span id="{{this._id}}wishList" class="icon_heart_alt wish" ></span>
+								</a></li> {{else}}
+								<li><a onclick="addToWishlist('{{this._id}}')" class="social-info btn_prod">
+									<span id="{{this._id}}wishList" class="icon_heart_alt "></span>
+								</a></li>
+								{{/if}}
+
+                            <li><a><button onclick="addToCart('{{this._id}}')"><span class="icon_bag_alt"></span></button></a></li>
+                        </ul>
+                        </a>
+                    </div>
+                        <div class="product__item__text">
+                            <h6><a href="/product-view/{{this._id}}">{{this.Name}}</a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            {{!-- <div class="product__price">₹{{this.price}}</div> --}}
+                            
+                        <div class="product__price">{{#if actualPrice}}₹ {{this.price}}<span> <del>₹
+                                    {{this.actualPrice}}</del></span>{{else}}₹ {{this.price}}{{/if}}</div>
+
+                                    {{#if fewStock}}
+                                    <p class="text-danger">Only Few Available!</p>
+                                     {{/if}}
+                                     {{#if noStock}}
+                                     <p class="text-danger">Out Of Stock!</p>
+                                     {{/if}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+    
+    <!-- Discount Section Begin -->
+    <section class="discount">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 p-0">
+                    <div class="discount__pic" >
+                        <img src="/assets/img/discountmain.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 p-0">
+                    <div class="discount__text" style="    height: 585px;
+    padding: 172px 90px 50px;">
+                        <div class="discount__text__title">
+                            <span>Discount</span>
+                            <h2>Sidemen Sunday</h2>
+                            <h5><span>Sale</span> 50%</h5>
+                        </div>
+                        <div class="discount__countdown" id="countdown-time">
+                            <div class="countdown__item">
+                                <span>22</span>
+                                <p>Days</p>
+                            </div>
+                            <div class="countdown__item">
+                                <span>18</span>
+                                <p>Hour</p>
+                            </div>
+                            <div class="countdown__item">
+                                <span>46</span>
+                                <p>Min</p>
+                            </div>
+                            <div class="countdown__item">
+                                <span>05</span>
+                                <p>Sec</p>
+                            </div>
+                        </div>
+                        <a href="#">Shop now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Discount Section End -->
+    
+    <!-- Services Section Begin -->
+    <section class="services spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-car"></i>
+                        <h6>Free Shipping</h6>
+                        <p>For all oder over $99</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-money"></i>
+                        <h6>Money Back Guarantee</h6>
+                        <p>If good have Problems</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-support"></i>
+                        <h6>Online Support 24/7</h6>
+                        <p>Dedicated support</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-headphones"></i>
+                        <h6>Payment Secure</h6>
+                        <p>100% secure payment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+    <div class="container-fluid" style="background-image: url(https://pbs.twimg.com/media/E9FqXliXoAYTWFG.jpg);">
+    <video class=" container" autoplay loop muted >
+  <source src="/images/twotone.mp4" type="video/mp4" />
+</video></div>
+    
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/mixitup.min.js"></script>
+<script src="/assets/js/jquery.countdown.min.js"></script>
+<script src="/assets/js/jquery.slicknav.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.nicescroll.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script src="/public/javascripts/script.js"></script>
+{{!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{{!-- <script>
+   // function addToCart(proId) {
+    //    console.log("entered")
+    //    $.ajax({
+    //        url: '/add-to-cart/' + proId,
+    //        method: 'get',
+    //        success: (response) => {
+    //            console.log(response);
+
+    //            if (response.status) {
+    //                let count = $('#cart-Count').html()
+    //                count = parseInt(count) + 1
+    //                swal("ADD TO CART", {
+    //                    icon: "success",
+    //                });
+    //                $('#cart-Count').html(count)
+//
+//
+    //            }else{
+     //               location.href='/login'
+      //          }
+//
+  //          }
+ //       })
+ //   }
+
+</script> --}}
+
+<script>
+    function addToCart(proId) {
+        $.ajax({
+            url: "/add-to-cart/" + proId,
+            method: "get",
+            success: (response) => {
+                if (response.status == "add") {
+                    let count = $("#cart-count").html();
+                    count = parseInt(count) + 1;
+                    $("#cart-count").html(count);
+                    swal({
+                        icon: "success",
+                        title: "Item added to Cart",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(()=>{
+                location.reload()
+
+                    })
+                } else if (response.status == "noStock") {
+                    swal({
+                        icon: "error",
+                        title: "Oops..!",
+                        text: "Out Of Stock!",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                } else if (response.status == "fewStock") {
+                    swal({
+                        icon: "error",
+                        title: "Oops..!",
+                        text: "Out Of Stock!",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                } else if (response.status == "maxLimitStock") {
+                    swal({
+                        icon: "warning",
+                        title: "Oops..!",
+                        text: "Limit Is Reached!",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                } else {
+                    location.href = "/login";
+                }
+            },
+        });
+    }
+</script>
+
+<script>
+	function addToWishlist(proId){
+    let id = proId+'wishList'
+    var btn = document.getElementById(id)
+    swal({
+                        icon: "success",
+                        title: "Item added to WishList",
+                        timer: 2000,
+                    }).then(()=>{
+                location.reload()
+                })
+    $.ajax({
+        url: '/add-to-wishlist/'+proId,
+        method: 'get',
+        success:(response)=>{
+            if(response.status){
+                console.log(response.wishlist)
+                if(response.wishlist){
+                    btn.classList.add('wish')
+                    swal({
+                        icon: "success",
+                        title: "Item added to WishList",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(()=>{
+                location.reload()
+                })
+                }else{
+                    btn.classList.remove('wish')
+                }
+            }
+      }
+    })
+}
+</script>
+
+
+
+
+        

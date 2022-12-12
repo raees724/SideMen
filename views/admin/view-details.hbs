@@ -1,0 +1,73 @@
+<main class="h-full pb-16 overflow-y-auto">
+    <div class="container-fluid px-6 mx-auto grid">
+
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+          
+        </h2>
+        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+            <div class="w-full overflow-x-auto">
+
+
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                            <tr
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3">Name</th>
+                                <th class="px-4 py-3">Email</th>
+                                <th class="px-4 py-3">Product Name</th>
+                                <th class="px-4 py-3"> Category</th>
+                                <th class="px-4 py-3">Price </th>
+                                {{!-- <th class="px-4 py-3">Product</th> --}}
+                                <th class="px-4 py-3">Status</th>
+                                {{!-- <th class="px-4 py-3" >Address</th>
+                                <th class="px-4 py-3"> PinCode</th>
+                                <th class="px-4 py-3">City</th> --}}
+
+
+
+                            </tr>
+                     
+                        </thead>
+                        <tbody class="bg-secondary divide-y dark:divide-gray-700 dark:bg-gray-800">
+                            {{#each order}}
+
+                            <tr class="text-gray">
+                                <td class="px-4 py-3">
+                                    <p class="font-semibold"> {{this.Nameuser}}</p>
+                                </td>
+                                    <td class="px-4 py-3">
+                                    <p class="font-semibold"> {{this.email}}</p>
+                                </td>
+                                    <td class="px-4 py-3">
+                                    <p class="font-semibold"> {{this.name}}</p>
+                                </td>
+                                    <td class="px-4 py-3">
+                                    <p class="font-semibold"> {{this.category}}</p>
+                                </td>
+                                    <td class="px-4 py-3">
+                                    <p class="font-semibold">₹ {{this.totalAmount}}</p>
+                                </td>
+                                    {{!-- <td class="px-4 py-3">
+                                    <p class="font-semibold"> {{this.homeaddress}}</p>
+                                </td> --}}
+                                {{!-- <td class="px-4 py-3"><img src="/assets/product-images/{{product._id}}1.jpg" width="40" alt=""></td>  --}}
+                                    <td class="px-4 py-3">
+                                    <p class="font-semibold"> {{this.status}}</p>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</div>
+</div>

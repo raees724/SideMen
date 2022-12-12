@@ -1,0 +1,80 @@
+<!-- Table Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Order List</h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Shipping Address</th>
+                                <th scope="col">View Products</th>
+                                <th scope="col">Total Amount</th>
+                                <th scope="col">Payment</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">OrderDetails</th>
+                                <th scope="col">Save</th>
+
+                                {{!-- <th>Order ID</th>
+                                <th>Shipping Address</th>
+                                <th>Total Amount</th>
+                                <th>Payment mode</th>
+                                <th>Status</th>
+                                <th>OrderDetails</th>
+                                <th>Save</th> --}}
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each orderList}}
+                            <tr>
+                                <form action="/admin/edit-status/{{this._id}}" method="post">
+                                <th>{{this._id}}</th>
+                                <td>
+                                    {{this.deliveryDitails.homeaddress}}<br>
+                                    {{this.deliveryDitails.fullAddress}}<br>
+                                    {{this.deliveryDitails.town}}<br>
+                                    {{this.deliveryDitails.Country}}<br> {{this.deliveryDitails.pincode}}
+
+                                </td>
+                                <td>
+                                          <a class="btn btn-primary"
+                                            href="/admin/view-details/{{this._id}}" >View</a>
+
+                                     
+
+                                </td>
+                                <td>₹ {{this.total}}</td>
+                                <td>{{this.paymentMethod}}</td>
+                                <td>{{this.status}}</td>
+                                <td>
+                                    <select class="" name="status" id="status">
+                                            <option value="">{{this.status}}</option>
+                                            <option value="cancelled">cancelled</option>
+                                            <option value="delivered">delivered</option>
+                                            <option value="shipped">shipped</option>
+                                            <option value="placed">placed</option>
+                                        </select>
+                                </td>
+                                {{#if this.cancelled}}
+                                    <td style="color: red;">{{this.status}}</td>
+                                    {{else if this.delivered}}
+                                    <td style="color: green;">{{this.status}}</td>
+                                    {{else if this.returned}}
+                                    <td style="color: rgb(117, 128, 0);">{{this.status}}</td>
+                                    {{else}}
+                                    <td><button type="submit" class="btn btn-success" style="background-color: rgb(95, 13, 13); border-radius:10px ; padding-left:25px ;padding-right: 25px;">Save status</button></td>
+                                    {{/if}}
+                                </form>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

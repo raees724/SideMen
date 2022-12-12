@@ -1,0 +1,52 @@
+
+<!-- Table Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">User List</h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                
+                                <th scope="col">Name</th>
+                                
+                                <th scope="col">Email</th>
+                                
+                                <th scope="col">Phone</th>
+
+                                <th scope="col">Block/Unblock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each users}}
+                            <tr>
+                                
+                                <td><p class="font-semibold"> {{this.Name}}</p></td>
+                                
+                                <td>{{this.Email}}</td>
+                                
+                                <td>{{this.phone}}</td>
+
+                                {{#if this.blocked}}
+                                <td>
+                                <a class="btn btn-success"
+                                            href="/admin/changestatus?id={{this._id}}" role="button" onclick="return confirm('Are you sure  {{this.Name}} ?')">UNBLOCK</a>
+                                </td>
+                                {{else}}
+                                <td>
+                                    <a class="btn btn-danger"
+                                            href="/admin/changestatus?id={{this._id}}" role="button" onclick="return confirm('Are you sure  {{this.Name}} ?')">BLOCK</a>
+                                </td>
+                                {{/if}}
+                            </tr>
+                           {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->
