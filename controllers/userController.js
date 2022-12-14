@@ -1,5 +1,6 @@
 var express = require('express');
 const bcrypt = require('bcrypt');
+var objectId = require('mongodb').ObjectId
 // const { response } = require('../app');
 const cartHelpers = require('../helpers/cart-helpers')
 const adminHelpers = require('../helpers/admin-helpers');
@@ -66,7 +67,9 @@ const userController ={
 
 
     homePage: async (req, res) => {
-
+      var Men
+      var Women
+      var Kid
       let todayDate = new Date().toISOString().slice(0, 10);
       let startCouponOffer = await couponHelpers.startCouponOffer(todayDate)
       let startCategoryOffer = await offerHelpers.startCategoryOffer(todayDate)
@@ -86,26 +89,21 @@ const userController ={
           }
           let category = await categoryHelpers.getAllCategory()
           console.log('categoryDetails', category);
-          // productHelpers.getAllProduct().then((products) => {
+
+          category.forEach(async(element)=>{
+            if(element.category=="MEN"){
+               Men = objectId(element._id)
+            }
+            else if(element.category=="WOMEN"){
+               Women = objectId(element._id)
+            }
+            else if (element.category =="KID"){
+               Kid= objectId(element._id)
+            }
+          });
+         console.log("MEN WOMEN KID",Men,Women,Kid)
           let products = await productHelpers.getAllProduct();
-          // let oneCat = await categoryHelpers.getCategory(req.params.id)
-          // let items =  await categoryHelpers.getAllCategoryProduct(oneCat.category)
-          // var men;
-          // var women;
-          // var kid;
-          // items.forEach(async(element)=>{
-          //   if(element.category==="MEN"){
-          //     men=true;
-          //   }else if(element.category==="WOMEN"){
-          //     women=true;
-          //   }else if(element.category==="KID"){
-          //     kid=true;
-          //   }else{
-          //     men=null;
-          //     women=null;
-          //     kid=null
-          //   }
-          // })
+          
           products.forEach(async (element) => {
               if (element.stock <= 10 && element.stock != 0) {
                   element.fewStock = true;
@@ -115,11 +113,22 @@ const userController ={
           });
 
 
-          res.render('user/main', { user: true, category, products, users: true, person, cartCount ,wishCount});
+          res.render('user/main', { user: true, category, products, users: true, person, cartCount ,wishCount,Men,Women,Kid});
 
       }
       let userss = req.session.user
       let category = await categoryHelpers.getAllCategory()
+      category.forEach(async(element)=>{
+        if(element.category=="MEN"){
+           Men = objectId(element._id)
+        }
+        else if(element.category=="WOMEN"){
+           Women = objectId(element._id)
+        }
+        else if (element.category =="KID"){
+           Kid= objectId(element._id)
+        }
+      });
       productHelpers.getAllProduct().then((products) => {
           // products.forEach(async element => {
           //     let catName = await categoryHelpers.getCategory(element.category)
@@ -127,7 +136,7 @@ const userController ={
           //         element.catName = catName.category
           //     }
           // });
-          res.render('user/main', { user: true, category, products, userss });
+          res.render('user/main', { user: true, category, products, userss ,Men,Women,Kid});
       })
 
 
@@ -564,8 +573,11 @@ placeOrderGet: async (req, res) => { //verifyLogin Required
 },
 
 placeOrderPost: async (req, res) => {  //verifyLogin Required
+  
+  console.log("hoiiiiiifffffffffff");
+  
   try{
-  let products = await getCartProductList(req.session.user._id)
+  let products = await cartHelpers.getCartProductList(req.session.user._id)
   console.log(req.body);
 
   console.log(req.body, "hoiiiiii");
@@ -573,7 +585,7 @@ placeOrderPost: async (req, res) => {  //verifyLogin Required
     totalPrice = req.session.couponTotal
     req.session.couponTotal = null
     } else {
-    totalPrice = await getTotalAmount(req.body.userId)
+    totalPrice = await cartHelpers.getTotalAmount(req.body.userId)
 
   }
   cartHelpers.placeOrder(req.body, products, totalPrice).then((orderId) => {
@@ -587,7 +599,8 @@ placeOrderPost: async (req, res) => {  //verifyLogin Required
                   res.json({ link, paypal: true })
               })
           })
-      } else if (req.body['payment-method'] == 'razorpay') {
+      } else if (req.body['payment-method'] === 'razorpay') {
+        console.log("Reached RazorPay")
           paymentHelpers.generateRazorpay(orderId, totalPrice).then((response) => {
               console.log(response, 'responsee');
               console.log(orderId, "ordeereeee");
