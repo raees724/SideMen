@@ -1,4 +1,5 @@
 
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,10 +12,11 @@ var adminRouter = require('./routes/admin');
 var db=require('./config/connection')
 var session=require('express-session')
 const MemoryStore = require('memorystore')(session)
+var fileUpload = require('express-fileupload');
 
 var app = express();
-require('dotenv').config()
-var fileUpload = require('express-fileupload');
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
