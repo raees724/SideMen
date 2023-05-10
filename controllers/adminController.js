@@ -5,7 +5,7 @@ const userHelpers = require('../helpers/user-helpers')
 const productHelpers = require('../helpers/product-helpers')
 const categoryHelpers = require('../helpers/category-helpers');
 const orderHelpers = require('../helpers/order-helpers');
-const offerHelpers = require('../helpers/offer-helpers');
+const offerHelpers = require('../helpers/offer-Helpers');
 const couponHelpers = require('../helpers/coupen-helpers');
 const productofferHelpers = require('../helpers/productoffer-helpers');
 
