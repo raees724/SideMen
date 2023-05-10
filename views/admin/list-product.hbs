@@ -48,27 +48,33 @@
                             {{/each}}
                         </tbody>
                     </table>
+                    {{#if products.length}}
+                    <button onclick="paginatePrevious()" style="background-color:red ;"> < </button>
+                            <span>Page <span id="pageInfo">{{passNo}}</span></span>
+
+                            <button onclick="paginateNext()" style="background-color:red ;"> > </button>
+                            {{/if}}
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Table End -->
-
+{{!-- 
 <script>
     archiveFunction() {
         swal({
-  title: "Are you sure?",
-  text: "But you will still be able to retrieve this file.",
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#DD6B55",
-  confirmButtonText: "Yes, archive it!",
-  cancelButtonText: "No, cancel please!",
-  closeOnConfirm: false,
-  closeOnCancel: false
+  //title: "Are you sure?",
+  //text: "But you will still be able to retrieve this file.",
+  //type: "warning",
+  //showCancelButton: true,
+  //confirmButtonColor: "#DD6B55",
+  //confirmButtonText: "Yes, archive it!",
+  //cancelButtonText: "No, cancel please!",
+  //closeOnConfirm: false,
+  //closeOnCancel: false
 },
-function(isConfirm){
+//function(isConfirm){
   if (isConfirm) {
     swal("Deleted!", "Your imaginary file has been archived.", "success");
   } else {
@@ -76,4 +82,53 @@ function(isConfirm){
   }
 });
     }
-</script>
+</script> --}}
+
+
+
+
+<script>
+
+        function paginatePrevious() {
+            let page = document.getElementById('pageInfo').innerHTML
+            page = Number(page) - 1
+            if (page) {
+                window.location.href = `/admin/list-product/${page}`
+            } else {
+                return false
+            }
+        }
+        function paginateNext() {
+            let page = document.getElementById('pageInfo').innerHTML
+            page = Number(page) + 1
+            if (page) {
+                window.location.href = `/admin/list-product/${page}`
+            } else {
+                return false
+            }
+        }
+
+    </script>
+
+    <script>
+        archiveFunction() {
+            swal({
+                title: "Are you sure?",
+                text: "But you will still be able to retrieve this file.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, archive it!",
+                cancelButtonText: "No, cancel please!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        swal("Deleted!", "Your imaginary file has been archived.", "success");
+                    } else {
+                        swal("Cancelled", "Your imaginary file is safe :)", "error");
+                    }
+                });
+        }
+    </script>

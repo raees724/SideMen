@@ -69,6 +69,7 @@ router.get('/wishlist_removeproduct/:id',verifyLogin,userController.WishListRemo
 
 router.get('/SomethingWentwrong',userController.SomethingsWrong)
 
+router.get('/walletHistory', userController.viewWalletHistory);
 
 module.exports = router;
 

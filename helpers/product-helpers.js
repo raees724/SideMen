@@ -113,4 +113,20 @@ module.exports = {
         resolve (product)
         })
     },
+
+
+    getallProductPage: (pageNo) => {
+        return new Promise(async (res, rej) => {
+          let users = await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([        
+              {
+                $skip: parseInt(pageNo),
+              },
+              {
+                $limit:4,
+              },
+            ])
+            .toArray();
+          res(users);
+        });
+      },
 }

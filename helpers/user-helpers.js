@@ -83,6 +83,7 @@ module.exports={
         })
     },
 
+    //otp login
 
     otpLogin: (userData) => {
         console.log(typeof (userData.phonenumber) + ' phone number that user typed');
@@ -162,18 +163,41 @@ module.exports={
     
 
 
+        // orderCancel: (ordId) => {
+        //     return new Promise((resolve, reject) => {
+        //         let status = 'cancelled'
+        //         db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(ordId) }, {
+        //             $set: {
+        //                 status: status
+        //             }
+        //         }).then(() => {
+        //             resolve()
+        //         })
+        //     })
+        // },
+
+
         orderCancel: (ordId) => {
             return new Promise((resolve, reject) => {
                 let status = 'cancelled'
-                db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(ordId) }, {
+                db.get().collection(collection.ORDER_COLLECTION).findOneAndUpdate({ _id: objectId(ordId) }, {
                     $set: {
                         status: status
                     }
-                }).then(() => {
+                }).then((order) => {
+                    console.log(order, 'eeeeeeeeeeee');
+                    if (order.value.paymentMethod != 'COD') {
+                        db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(order.value.userId) }, {
+                            $inc: { 'wallet': order.value.total }
+                        })
+                    }
                     resolve()
                 })
             })
         },
+
+
+
 
         getAddress:(address,userId)=>{
             let addressDetails ={
@@ -265,9 +289,9 @@ module.exports={
     
                     console.log(order, 'eeeeeeeeeeee');
     
-                    // db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(order.value.userId) }, {
-                    //     $inc: { 'wallet': order.value.total }
-                    // })
+                    db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(order.value.userId) }, {
+                        $inc: { 'wallet': order.value.total }
+                    })
     
     
     
@@ -278,6 +302,7 @@ module.exports={
 
           totUsers:()=>{
             return new Promise(async(resolve,reject)=>{
+                console.log("USER")
                 var totalUsers = await db.get().collection(collection.USER_COLLECTION).count();
                 resolve(totalUsers)
             })

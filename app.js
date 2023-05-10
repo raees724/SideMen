@@ -10,6 +10,8 @@ var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var db=require('./config/connection')
 var session=require('express-session')
+const MemoryStore = require('memorystore')(session)
+
 var app = express();
 require('dotenv').config()
 var fileUpload = require('express-fileupload');
@@ -25,7 +27,15 @@ app.use(bodyParser.urlencoded({
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:"Key",resave:false,saveUninitialized:true,cookie:{maxAge:10000000}}))
+
+app.use(session({secret:"Key",
+resave:false,
+saveUninitialized:true,
+store: new MemoryStore({
+  checkPeriod: 86400000 // prune expired entries every 24h
+}),
+cookie:{maxAge:86400000}}))
+
 db.connect((err)=>{
   if(err)
   console.log("Connection Error"+err);

@@ -32,38 +32,6 @@ const userController ={
 
     //////////////////////////////home page////////////////////////
 
-    // homePage: async (req, res)=> {
-    //     if(req.session.user){
-    //       let userss=req.session.user
-    //       let person = await userHelpers.getUser(userss._id)
-    //       let cartCount=null
-    //       if(req.session.user){
-    //         cartCount=await cartHelpers.getCartCount(req.session.user._id)
-    //        wishCount=await wishHelpers.getWishListCount(req.session.user._id)
-    //       }
-    //     let category = await categoryHelpers.getAllCategory()
-    //       productHelpers.getAllProduct().then((products) => {
-    //         products.forEach(async element => {
-    //           let catName = await categoryHelpers.getCategory(element.category)
-    //           if(catName){
-    //             element.catName = catName.category 
-    //           }
-    //         });
-    //       res.render('user/main',{user:true,category,products,users:true,person,cartCount,wishCount});
-    //       })
-    //     }
-    //     let userss=req.session.user
-    //     let category = await categoryHelpers.getAllCategory()
-    //       productHelpers.getAllProduct().then((products) => {
-    //         products.forEach(async element => {
-    //           let catName = await categoryHelpers.getCategory(element.category)
-    //           if(catName){
-    //             element.catName = catName.category 
-    //           }
-    //         });
-    //       res.render('user/main',{user:true,category,products,userss});
-    //       })
-    //   },
 
 
     homePage: async (req, res) => {
@@ -560,12 +528,16 @@ placeOrderGet: async (req, res) => { //verifyLogin Required
   let alladdress = address.address
 
   let total = await cartHelpers.getTotalAmount(req.session.user._id)
+  let wallet = false
+            if (total <= person.wallet) {
+                wallet = true
+            }
   let product = await categoryHelpers.getAllCategoryProduct(req.params.id)
   let cartsProducts = await cartHelpers.getCartList(req.session.user._id)
   console.log("gggggggggggg", cartsProducts);
   let category = await categoryHelpers.getAllCategory()
   // let addressUser=address[0].allAddressDetails
-  res.render('user/place-order', { user: true, category, total, user: req.session.user, cartsProducts, product, users, cartCount, eachAddress, alladdress, person, })
+  res.render('user/place-order', { user: true, category, total, user: req.session.user, cartsProducts, product, users, cartCount, eachAddress, alladdress, person,wallet })
   } catch(error) {
   console.log("Something Went Wrong in Place Order");
   res.redirect('/SomethingWentwrong');
@@ -590,8 +562,12 @@ placeOrderPost: async (req, res) => {  //verifyLogin Required
   }
   cartHelpers.placeOrder(req.body, products, totalPrice).then((orderId) => {
       console.log(orderId, 'cod');
-      if (req.body['payment-method'] === 'COD') {
-          res.json({ codStatus: true })
+
+      if (req.body['payment-method'] === 'COD' || req.body['payment-method'] === 'wallet') {
+        res.json({ codStatus: true })
+
+      // if (req.body['payment-method'] === 'COD') {
+      //     res.json({ codStatus: true })
 
       } else if (req.body['payment-method'] === 'paypal') {
           paymentHelpers.genaretePaypal(orderId, totalPrice).then((link) => {
@@ -951,6 +927,45 @@ searchProductPost: async(req,res)=> {
   }) 
   }
 },
+
+
+
+////////////////////////////////WALLET/////////////////////////////////
+
+viewWalletHistory: async (req, res) => {
+  try {
+      console.log('hii');
+
+      let userId = req.session.user._id
+      let user = await userHelpers.getUserDetails(userId)
+      if (user.walletHistory == undefined) {
+          user.walletHistory == false
+      } else {
+          user.walletHistory.forEach(element => {
+              let a = element.date.toISOString().split('T')[0]
+              console.log(a);
+              element.date = a;
+          });
+      }
+      console.log(user.walletHistory, 'oooooo');
+
+
+      console.log(user, 'userrrrrrrrr');
+      let users = req.session.user
+      let userss = req.session.user
+      let person = await userHelpers.getUser(userss._id)
+      let category = await categoryHelpers.getAllCategory()
+      let cartCount = await cartHelpers.getCartCount(req.session.user._id)
+      let wishCount = await wishHelpers.getWishListCount(req.session.user._id)
+      res.render('user/walletHistory', { user: true, user, userss, person,wishCount, category, users, cartCount })
+  } catch (error) {
+      console.log(error);
+      res.redirect('/SomethingWentwrong')
+
+  }
+},
+
+
   ////////////////////////////////////////////// LogOut /////////////////////////////////////////////////////////////
 
 logOutGet: (req, res) => {

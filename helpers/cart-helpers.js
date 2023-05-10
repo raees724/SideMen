@@ -268,8 +268,8 @@ module.exports ={
     placeOrder:(order, products,total)=>{
         return new Promise((resolve,reject)=>{
            
-            // wallet Comes here
-            let status=order['payment-method']==='COD'?'placed':'pending'
+          let status = order['payment-method'] === 'COD' || order['payment-method'] === 'wallet' ? 'placed' : 'pending'
+            // let status=order['payment-method']==='COD'?'placed':'pending'
 
             let orderObj={
                 deliveryDitails:{
@@ -310,9 +310,24 @@ module.exports ={
                                 }
                             );
                     });
-                    db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
-                    //Wallet Comes Here
-                    
+                    // db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
+                   
+
+                    db.get().collection(collection.CART_COLLECTION).deleteOne({ user: objectId(order.userId) }).then((response) => {
+                      if (order['payment-method'] == 'wallet') {
+                        db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(order.userId) }, {
+                          $push: {
+                            walletHistory: {
+                                date: new Date(),
+                                orderId:objectId(response.insertedId),
+                                amount: total,
+                                status: "Purchaced from wallet"
+                            }
+                        },
+                          $inc: { 'wallet': -total }
+                        })
+                      }
+                    })
                     resolve(response.insertedId)
                 })
 

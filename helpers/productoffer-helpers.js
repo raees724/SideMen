@@ -178,11 +178,11 @@ module.exports = {
         console.log(proStartDateIso,"///////////dare///////////");
         return new Promise(async (resolve, reject) => {
             let data = await db
-                .get()
-                .collection(collection.PRODUCTOFFER_COLLECTION)
+                .get().collection(collection.PRODUCTOFFER_COLLECTION)
                 .findOne({ startDateIso: { $lte: proStartDateIso } })
                 console.log('jjjjj 181',data);
             if (data) {
+              console.log(data, "bannnnnnnnnn");
                     let product = await db
                         .get()
                         .collection(collection.PRODUCT_COLLECTION)

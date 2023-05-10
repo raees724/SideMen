@@ -30,7 +30,7 @@ router.get('/admin-dashboard',verifyLogin1, adminController.adminDashboardGet);
 router.get('/admin-dashboard/day', adminController.adminDashboardGetday);
 router.post('/admin-dashboard/graphdata', adminController.adminDashboardPostDataGrapgh);
 
-router.get('/list-product',verifyLogin1, adminController.listProductGet);
+router.get('/list-product/:id',verifyLogin1, adminController.listProductGet);
 router.get('/list-user',adminController.listUserGet);
 router.get('/list-category', adminController.listCategoryGet);
 router.get('/list-order',verifyLogin1, adminController.listOrderGet);

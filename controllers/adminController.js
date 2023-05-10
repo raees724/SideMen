@@ -27,9 +27,9 @@ const adminController={
       let Users=await userHelpers.totUsers()
       let Products=await userHelpers.totProducts()
       let Orders=await userHelpers.totOrders()  
-      let Revenue=await adminHelpers.graphdata()
-      let revenue =Revenue.yearlySales[0].total
-      res.render('admin/admin-dashboard', { admin: true,Users,Products,Orders,revenue})
+      // let Revenue=await adminHelpers.graphdata()
+      // let revenue =Revenue.yearlySales[0].total
+      res.render('admin/admin-dashboard', { admin: true,Users,Products,Orders})
     } else {
       res.redirect('/admin/admin-login')
     }
@@ -75,20 +75,36 @@ const adminController={
   
   /////////////////////////// Listing(User,Category,Products, Orders) ///////////////////////////////
   
-  listProductGet: (req, res) => { //verifyLogin1
-    console.log('asdfafoff');
-    productHelpers.getAllProduct().then((products) => {
-      // products.forEach(async element => {
-      //   let catName = await categoryHelpers.getCategory(element.category)
-      //   if(catName){
-      //     element.catName = catName.category
-      //   }
-      // });
-      res.render('admin/list-product', { admin: true, products })
-    })
+  // listProductGet: (req, res) => { //verifyLogin1
+  //   console.log('asdfafoff');
+  //   productHelpers.getAllProduct().then((products) => {
+  //     // products.forEach(async element => {
+  //     //   let catName = await categoryHelpers.getCategory(element.category)
+  //     //   if(catName){
+  //     //     element.catName = catName.category
+  //     //   }
+  //     // });
+  //     res.render('admin/list-product', { admin: true, products })
+  //   })
   
-  },
+  // },
   
+
+  listProductGet: (req, res) => {
+    try {
+        let pageNo = (Number(req.params.id) - 1) * 4;
+        let passNo = req.params.id;
+        productHelpers.getallProductPage(pageNo).then((products)=>{
+            res.render('admin/list-product', { admin: true, products,passNo })
+
+        })
+        // productHelpers.getAllProduct().then((products) => {
+        // })
+    } catch (error) {
+        res.redirect('/SomethingWentwrong')
+
+    }
+},
   
   
   listUserGet: (req, res) => {
@@ -221,7 +237,7 @@ const adminController={
       image4.mv(`./public/assets/product-images/${data}4.jpg`, (err, done) => {
       })
   
-      res.redirect('/admin/list-product')
+      res.redirect('/admin/list-product/1')
     })
   } catch (error){
     console.log("Something Went Wrong in Add Product");
@@ -238,7 +254,7 @@ const adminController={
     let proId = req.params.id
     console.log(proId);
     productHelpers.deleteProduct(proId).then((response) => {
-      res.redirect('/admin/list-product')
+      res.redirect('/admin/list-product/1')
     })
   },
   
@@ -337,10 +353,10 @@ const adminController={
             }
           })
         }
-        res.redirect('/admin/list-product')
+        res.redirect('/admin/list-product/1')
       }
       catch (err) {
-        res.redirect('/admin/list-product')
+        res.redirect('/admin/list-product/1')
       }
     })
   },
@@ -363,14 +379,14 @@ const adminController={
     let Users=await userHelpers.totUsers()
     let Products=await userHelpers.totProducts()
     let Orders=await userHelpers.totOrders()
-    let Revenue=await adminHelpers.graphdata()
-    let revenue =Revenue.yearlySales[0].total
-    console.log(Revenue);
+    // let Revenue=await adminHelpers.graphdata()
+    // let revenue =Revenue.yearlySales[0].total
+    // console.log(Revenue);
     // console.log(Revenue.yearlySales[0].total);
     // console.log(revenue.yearlySales[0].total);
     console.log('jjjjjjjjjjjjjjjjj')
   
-    res.render('admin/admin-dashboard', { admin: true,Users,Products,Orders,revenue})
+    res.render('admin/admin-dashboard', { admin: true,Users,Products,Orders})
   
   
   },
