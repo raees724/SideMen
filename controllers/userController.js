@@ -16,7 +16,7 @@ var router = express.Router();
 // const { json } = require('express');
 const orderHelpers= require('../helpers/order-helpers')
 const moment = require("moment");
-const offerHelpers = require('../helpers/offer-helpers');
+const offerHelpers = require('../helpers/offer-Helpers');
 // const {getCartProductList,getTotalAmount} = require('../helpers/cart-helpers')
 const productofferHelpers = require('../helpers/productoffer-helpers');
 require('dotenv')
